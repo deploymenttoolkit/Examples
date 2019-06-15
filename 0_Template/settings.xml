@@ -1,0 +1,15 @@
+<Configuration>
+	<Name>Template</Name>
+	<Version>1.0.0.0</Version>
+	
+	<DisplaySettings>
+		<!-- User can't minimize or hide the prompt. Forces the user to see it -->
+		<PersistentPrompt>true</PersistentPrompt>
+		<!-- Blocks the screens during deployment -->
+		<BlockScreensDuringInstallation>false</BlockScreensDuringInstallation>
+	</DisplaySettings>
+	
+	<CustomVariables>
+		<CustomVariable Name="IsWindowsInstalled" Script="function IsWindowsInstalled { return Test-Path C:\Windows }" />
+	</CustomVariables>
+</Configuration>

@@ -1,0 +1,77 @@
+<InstallSettings>
+	<!-- Command line that will be executed. On msi installs it is not required to add msiexec. Full path is only required if file is not inside "Files" folder -->
+	<CommandLine>template.msi</CommandLine>
+	<!-- Parameters for installation. If 'UseDefaultMSIParameters' is set to true, parameters will be ignored on MSI installations -->
+	<Parameters></Parameters>
+	
+	<DeferSettings>
+		<!-- Number of days the user can defer the installation. Either remove this element(<Days>) or set to 0 to disable. Do not leave empty! -->
+		<Days>7</Days>
+		<!-- Date of the deadline. Installation will be forced on this date -->
+		<Deadline>20.10.2099</Deadline>
+	</DeferSettings>
+	
+	<MSISettings>
+		<!-- Add suppress reboot MSI command line parameters -->
+		<SuppressReboot>true</SuppressReboot>
+		<!-- Use default parameters for msi installations (/qn). Will overwrite the Parameters set in 'Parameters' if set to true -->
+		<UseDefaultMSIParameters>true</UseDefaultMSIParameters>
+		<!-- Supress MSI restart return code. Instead of 3010 a return code of 0 is returned -->
+		<SupressMSIRestartReturnCode>false</SupressMSIRestartReturnCode>
+	</MSISettings>
+	
+	<CloseProgramsSettings>
+		<!-- Time for the user to close the programs himself (and save his work) in seconds. Any value higher than 0 will enable this feature. A value of 0 will give the user unlimited time -->
+		<TimeUntilForcedClose>10</TimeUntilForcedClose>
+		<!-- Disables start of specified exe files during the installation -->
+		<DisableStartDuringInstallation>true</DisableStartDuringInstallation>
+		<!-- exe files that will be closed before installation -->
+		<Close>
+			<Item>template.exe</Item>
+		</Close>
+	</CloseProgramsSettings>
+	
+	<!-- Programs that have to be uninstalled before installing -->
+	<UninstallSettings>
+		<!-- Continue setup even if uninstallation failed -->
+		<IgnoreUninstallErrors>false</IgnoreUninstallErrors>
+		<!-- Programs that need to be uninstalled. Use * for WildCard search -->
+		<Uninstall>
+			<Item Exact="true">Template</Item>
+		</Uninstall>
+	</UninstallSettings>
+	
+	<RestartSettings>
+		<!-- Force a restart after a successfull installation -->
+		<ForceRestart>false</ForceRestart>
+		<!-- Time for the user to save his work in seconds until the reboot is forced -->
+		<TimeUntilForcedRestart>180</TimeUntilForcedRestart>
+	</RestartSettings>
+	
+	<LogoffSettings>
+		<!-- Force a logoff after installation -->
+		<ForceLogoff>false</ForceLogoff>
+		<!-- Time for the user to save his work in seconds until the logoff is forced -->
+		<TimeUntilForcedLogoff>180</TimeUntilForcedLogoff>
+	</LogoffSettings>
+	
+	<ActiveSetupSettings>
+		<!-- If set to true, an ActiveSetup entry will be created. Requires a valid CommandLine !-->
+		<UseActiveSetup>false</UseActiveSetup>
+		<!-- Name that will be added to the ActiveSetup entry. Override if required. By default, on MSI installations this will be the ProductId of the MSI. On other installs the name from the deployment will be used. -->
+		<Name></Name>
+		<!-- Version that will be added to the ActiveSetup entry. Override if required. By default, on MSI installations this will be the Version of the MSI. on other installations version from the deployment will be used. -->
+		<Version></Version>
+		<!-- CommandLine that will be added to the ActiveSetup entry. This is the commandline that will be executed in user context on the next login. -->
+		<CommandLine></CommandLine>
+	</ActiveSetupSettings>
+	
+	<CustomActions>
+		<Action Conditon="('$IsWindowsInstalled$' == '1')" ExectionOrder="BeforeDeployment">
+			<FileCopy Source="C:\Windows\explorer.exe" Target="C:\ReverseEngineering\explorer.exe" />
+		</Action>
+		<Action ExectionOrder="AfterDeployment">
+			<FileDelete Target="C:\ReverseEngineering\explorer.exe" />
+		</Action>
+	</CustomActions>
+</InstallSettings>
