@@ -1,0 +1,11 @@
+<Configuration>
+	<Name>Google Chrome</Name>
+	<Version>75.0.3770.80</Version>
+	
+	<DisplaySettings>
+		<!-- User can't minimize or hide the prompt. Forces the user to see it -->
+		<PersistentPrompt>true</PersistentPrompt>
+		<!-- Blocks the screens during deployment -->
+		<BlockScreensDuringInstallation>true</BlockScreensDuringInstallation>
+	</DisplaySettings>
+</Configuration>
